@@ -3,51 +3,19 @@ package com.bridgelabz.AddressBook;
 
 	import java.util.Scanner;
 
-	public class AddressBookMain {
+	
+		import java.util.Scanner;
 
-		public static void main(String[] args) {
-			System.out.println("---------- Welcome To Address Book Program!! ----------");
-			 CreateContact person = new CreateContact();
-		        Address address = new Address();
-		        Scanner scannerObject = new Scanner(System.in);
+		public class AddressBookMain {
+				static Scanner scannerObject = new Scanner(System.in);
 
-		        System.out.println("Enter First Name: ");
-		        String firstName = scannerObject.next();
+				public static void main(String[] args) {
+					System.out.println("---------- Welcome To Address Book Program!! ----------");
+					AdressBook AddressBook = new AdressBook();
+			        AddressBook.operation();
+				}
 
-		        System.out.println("Enter Last Name: ");
-		        String lastName = scannerObject.next();
-
-		        System.out.println("Enter Phone Number: ");
-		        long phoneNumber = scannerObject.nextLong();
-
-		        System.out.println("Enter Email: ");
-		        String email = scannerObject.next();
-
-		        System.out.println("Enter City: ");
-		        String city = scannerObject.next();
-
-		        System.out.println("Enter State: ");
-		        String state = scannerObject.next();
-
-		        System.out.println("Enter Zip Code: ");
-		        long zipCode = scannerObject.nextLong();
-
-		        scannerObject.close();
-
-		        person.setFirstName(firstName);
-		        person.setLastName(lastName);
-		        person.setPhoneNumber(phoneNumber);
-		        person.setEmail(email);
-		        address.setCity(city);
-		        address.setState(state);
-		        address.setZip(zipCode);
-		        person.setAddress(address);
-
-		        AdressBook addressBook = new AdressBook();
-		        addressBook.addContact(person);
-		        addressBook.displayContents();
-		}
-
-		}
+			}
+	
 
 
