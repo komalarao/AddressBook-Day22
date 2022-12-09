@@ -1,5 +1,6 @@
 package com.bridgelabz.AddressBook;
 
+
 	import java.util.ArrayList;
 	import java.util.HashMap;
 	import java.util.Map;
@@ -10,6 +11,7 @@ package com.bridgelabz.AddressBook;
 	    public static HashMap<String, ArrayList<ContactPerson>> personByCity  = new HashMap<String, ArrayList<ContactPerson>>();
 	    public static HashMap<String, ArrayList<ContactPerson>> personByState = new HashMap<String, ArrayList<ContactPerson>>();
 	    public String addressBookName;
+	    public boolean isPresent = false;
 
 	    public String getAddressBookName() {
 	        return addressBookName;
@@ -26,7 +28,6 @@ package com.bridgelabz.AddressBook;
 	            System.out.println("\nChoose the operation you want to perform");
 	            System.out.println(
 	                    "1.Add To Address Book\n2.Edit Existing Entry\n3.Display Address book\n4.Delete Contact\n5.Exit Address book System");
-
 	            switch (scannerObject.nextInt()) {
 	                case 1:
 	                    addContact();
@@ -52,39 +53,45 @@ package com.bridgelabz.AddressBook;
 
 	        System.out.println("Enter First Name: ");
 	        String firstName = scannerObject.next();
-	        if(contactList.containsKey(firstName)) {
-	            System.out.println("Contact Already Exists");
-	            return;
+
+	        contactList.entrySet().stream().forEach(entry -> {
+	            if(entry.getKey().equals(firstName.toLowerCase())) {
+	                System.out.println("Contact Already Exists");
+	                isPresent = true;
+	                return;
+	            }
+	        });
+	        if(isPresent == false) {
+	            System.out.println("Enter Last Name: ");
+	            String lastName = scannerObject.next();
+
+	            System.out.println("Enter Phone Number: ");
+	            long phoneNumber = scannerObject.nextLong();
+
+	            System.out.println("Enter Email: ");
+	            String email = scannerObject.next();
+
+	            System.out.println("Enter City: ");
+	            String city = scannerObject.next();
+
+	            System.out.println("Enter State: ");
+	            String state = scannerObject.next();
+
+	            System.out.println("Enter Zip Code: ");
+	            long zipCode = scannerObject.nextLong();
+
+	            person.setFirstName(firstName);
+	            person.setLastName(lastName);
+	            person.setPhoneNumber(phoneNumber);
+	            person.setEmail(email);
+	            address.setCity(city);
+	            address.setState(state);
+	            address.setZip(zipCode);
+	            person.setAddress(address);
+	            addPersonToCity(person);
+	            addPersonToState(person);
+	            contactList.put(firstName.toLowerCase(), person);
 	        }
-	        System.out.println("Enter Last Name: ");
-	        String lastName = scannerObject.next();
-
-	        System.out.println("Enter Phone Number: ");
-	        long phoneNumber = scannerObject.nextLong();
-
-	        System.out.println("Enter Email: ");
-	        String email = scannerObject.next();
-
-	        System.out.println("Enter City: ");
-	        String city = scannerObject.next();
-
-	        System.out.println("Enter State: ");
-	        String state = scannerObject.next();
-
-	        System.out.println("Enter Zip Code: ");
-	        long zipCode = scannerObject.nextLong();
-
-	        person.setFirstName(firstName);
-	        person.setLastName(lastName);
-	        person.setPhoneNumber(phoneNumber);
-	        person.setEmail(email);
-	        address.setCity(city);
-	        address.setState(state);
-	        address.setZip(zipCode);
-	        person.setAddress(address);
-	        addPersonToCity(person);
-	        addPersonToState(person);
-	        contactList.put(firstName, person);
 	    }
 	    public void addPersonToCity(ContactPerson contact) {
 	        if (personByCity.containsKey(contact.getAddress().getCity())) {
@@ -108,15 +115,17 @@ package com.bridgelabz.AddressBook;
 	    }
 	    public void editPerson() {
 	        ContactPerson person = new ContactPerson();
+
 	        System.out.println("Enter the first name:");
 	        String firstName = scannerObject.next();
-
 	        if(contactList.containsKey(firstName)) {
 	            person = contactList.get(firstName);
+
 	            Address address = person.getAddress();
 	            System.out.println("\nChoose the attribute you want to change:");
 	            System.out.println("1.Last Name\n2.Phone Number\n3.Email\n4.City\n5.State\n6.ZipCode");
 	            int choice = scannerObject.nextInt();
+
 	            switch (choice) {
 	                case 1:
 	                    System.out.println("Enter the correct Last Name :");
@@ -173,5 +182,5 @@ package com.bridgelabz.AddressBook;
 	        }
 	        System.out.println("-----------------------------------------");
 	    }
-	}    
+	}   
 
