@@ -5,13 +5,13 @@ package com.bridgelabz.AddressBook;
 		import java.util.Iterator;
 		import java.util.Scanner;
 		public class AdressBook {
-			private static final ArrayList<CreateContact> CreatecontactList = null;
-			Scanner scannerObject = new Scanner(System.in);
-			ArrayList<CreateContact> contactList = new ArrayList<CreateContact>();
-			
-			public void operation() {
+			private static final char[][] CreateContactList = null;
+			private final int NUM_OF_PEOPLE = 5;//declare operation
+		    Scanner scannerObject = new Scanner(System.in);//input
+		    CreateContact[]contactList = new CreateContact[NUM_OF_PEOPLE];//array to no of1 person detail
+		    public static int numberOfEntries = 0;//initializing
 
-
+		    public void operation() {
 
 		        boolean moreChanges = true;
 		        do{
@@ -43,43 +43,59 @@ package com.bridgelabz.AddressBook;
 		    }
 
 		    public void addContact() {
+		        System.out.println("Enter number of people you want to add to Addres book");
+		        int numberOfPeople = scannerObject.nextInt();
+		        int endIterator = numberOfPeople+numberOfEntries;
 
-		        CreateContact person = new CreateContact();
-		        Address address = new Address();
+		        if(endIterator > NUM_OF_PEOPLE) {
+		            System.out.println("Address Book is FULL !");
+		            System.out.println("You can add: "+(NUM_OF_PEOPLE-numberOfEntries));
+		            return;
+		        }
+		        else {
+
+		            for(int index=numberOfEntries; index < endIterator ; index++) {
+
+		                CreateContact person = new CreateContact();
+		                Address address = new Address();
+		                System.out.println("Enter the details of Person "+(index+1));
+
+		                System.out.println("Enter First Name: ");
+		                String firstName = scannerObject.next();
+
+		                System.out.println("Enter Last Name: ");
+		                String lastName = scannerObject.next();
+
+		                System.out.println("Enter Phone Number: ");
+		                long phoneNumber = scannerObject.nextLong();
+
+		                System.out.println("Enter Email: ");
+		                String email = scannerObject.next();
+
+		                System.out.println("Enter City: ");
+		                String city = scannerObject.next();
+
+		                System.out.println("Enter State: ");
+		                String state = scannerObject.next();
+
+		                System.out.println("Enter Zip Code: ");
+		                long zipCode = scannerObject.nextLong();
 
 
-		        System.out.println("Enter First Name: ");
-		        String firstName = scannerObject.next();
+		                person.setFirstName(firstName);
+		                person.setLastName(lastName);
+		                person.setPhoneNumber(phoneNumber);
+		                person.setEmail(email);
+		                address.setCity(city);
+		                address.setState(state);
+		                address.setZip(zipCode);
+		                person.setAddress(address);
+		                contactList[index] = person;
+		                numberOfEntries++;
 
-		        System.out.println("Enter Last Name: ");
-		        String lastName = scannerObject.next();
+		            }
+		        }
 
-		        System.out.println("Enter Phone Number: ");
-		        long phoneNumber = scannerObject.nextLong();
-
-		        System.out.println("Enter Email: ");
-		        String email = scannerObject.next();
-
-		        System.out.println("Enter City: ");
-		        String city = scannerObject.next();
-
-		        System.out.println("Enter State: ");
-		        String state = scannerObject.next();
-
-		        System.out.println("Enter Zip Code: ");
-		        long zipCode = scannerObject.nextLong();
-
-
-
-		        person.setFirstName(firstName);
-		        person.setLastName(lastName);
-		        person.setPhoneNumber(phoneNumber);
-		        person.setEmail(email);
-		        address.setCity(city);
-		        address.setState(state);
-		        address.setZip(zipCode);
-		        person.setAddress(address);
-		        contactList.add(person);
 
 		    }
 
@@ -87,29 +103,28 @@ package com.bridgelabz.AddressBook;
 
 		        System.out.println("Enter the first name:");
 		        String firstName = scannerObject.next();
-		        Iterator<CreateContact> iterator = contactList.listIterator();
 
-		        while(iterator.hasNext()) {
+		        for(int index = 0; index <numberOfEntries; index++) {
 
-		            CreateContact person = iterator.next();
+		            char[] person = CreateContactList[index];
 
-		            if(firstName.equals(person.getFirstName()) ) {
+		            if(firstName.equals(person.length)) {
 
-		                Address address = person.getAddress();
+		                int address = person.length;
 		                System.out.println("\nChoose the attribute you want to change:");
-		                System.out.println("1.Last Name\n2.Phone Number\n3.Email\n4.City\n5.State\n6.ZipCode");
+		                System.out.println("1.First Name\n2.Last Name\n3.Phone Number\n4.Email\n5.City\n6.State\n7.ZipCode");
 		                int choice = scannerObject.nextInt();
 
 		                switch(choice) {
 		                    case 1:
 		                        System.out.println("Enter the correct Last Name :");
 		                        String lastName = scannerObject.next();
-		                        person.setLastName(lastName);
+		                        person.length;
 		                        break;
 		                    case 2:
 		                        System.out.println("Enter the correct Phone Number :");
 		                        long phoneNumber = scannerObject.nextLong();
-		                        person.setPhoneNumber(phoneNumber);
+		                        person.length;
 		                        break;
 		                    case 3:
 		                        System.out.println("Enter the correct Email Address :");
@@ -134,30 +149,39 @@ package com.bridgelabz.AddressBook;
 		                }
 
 		            }
-		        }
 
+		        }
 		    }
+
 		    public void deletePerson() {
 
 		        System.out.println("Enter the first name of the person to be deleted");
 		        String firstName = scannerObject.next();
-		        Iterator<CreateContact> iterator = CreateContact.listIterator();
-		        while(iterator.hasNext()) {
 
-		            CreateContact person = iterator.next();
+		        for(int index = 0; index <numberOfEntries; index++) {
 
-		            if(firstName.equals(person.getFirstName())) {
-		                CreateContact.remove(person);
+		            char[] person = CreateContactList[index];
+
+		            if(firstName.equals(person.length)) {
+
+		                for(int nextIndex = index; nextIndex<CreateContactList.length-1; nextIndex++) {
+		                    CreateContactList[nextIndex] = CreateContactList[nextIndex+1];
+
+		                }
+		                numberOfEntries--;
 		                return;
 		            }
+
 		        }
 		    }
-		    public void displayContents() {
 
-		        Iterator<CreateContact> iterator = CreateContact.iterator()
-		        while(iterator.hasNext()) {
-		            System.out.println(iterator.next());
+		    public void displayContents() {
+		        System.out.println("----- Contents of the Address Book -----");
+		        for(int index=0; index < numberOfEntries ; index++) {
+		            System.out.println(CreateContactList[index]);
+
 		        }
+		        System.out.println("-----------------------------------------");
+
 		    }
 		}
-
